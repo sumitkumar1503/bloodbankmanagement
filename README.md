@@ -16,17 +16,22 @@
 ## Functions
 
 ### Admin
-- Create Admin account using command
+- Create Admin account using following command
 ```
 py manage.py createsuperuser
 ```
-- After Login, can see Total Number Of Student, Teacher, Course, Questions are there in system on Dashboard.
-- Can View, Update, Delete, Approve Teacher.
-- Can View, Update, Delete Student.
-- Can Also See Student Marks.
-- Can Add, View, Delete Course/Exams.
-- Can Add Questions To Respective Courses With Options, Correct Answer, And Marks.
-- Can View And Delete Questions Too.
+- After Login, can see Unit of blood of each blood group available, Number Of Donor, Number of blood request, Number of approved request, Total Unit of blood on Dashboard.
+- Can View, Update, Delete Donor.
+- Can View, Update, Delete Patient.
+- Can View Donation Request made by donor and can approve or reject that request based on disease of donor.
+- If Donation Request approved by admin then that unit of blood added to blood stock.
+- If Donation Request rejected by admin then 0 unit of blood added to stock.
+- Can View Blood Request made by donor / patient and can approve or reject that request.
+- If Blood Request approved by admin then that unit of blood reduced from blood stock.
+- If Blood Request rejected by admin then 0 unit of blood reduced from stock.
+- Can see history of blood request.
+- Can Update Unit Of Particular Blood Group.
+
 
 ### Donor
 - Donor can create account by providing basic details.
