@@ -69,7 +69,7 @@ def afterlogin_view(request):
     else:
         return redirect('admin-dashboard')
 
-
+@login_required(login_url='adminlogin')
 def admin_dashboard_view(request):
     totalunit=models.Stock.objects.aggregate(Sum('unit'))
     dict={
@@ -89,6 +89,7 @@ def admin_dashboard_view(request):
     }
     return render(request,'blood/admin_dashboard.html',context=dict)
 
+@login_required(login_url='adminlogin')
 def admin_blood_view(request):
     dict={
         'bloodForm':forms.BloodForm(),
@@ -112,10 +113,12 @@ def admin_blood_view(request):
     return render(request,'blood/admin_blood.html',context=dict)
 
 
+@login_required(login_url='adminlogin')
 def admin_donor_view(request):
     donors=dmodels.Donor.objects.all()
     return render(request,'blood/admin_donor.html',{'donors':donors})
 
+@login_required(login_url='adminlogin')
 def update_donor_view(request,pk):
     donor=dmodels.Donor.objects.get(id=pk)
     user=dmodels.User.objects.get(id=donor.user_id)
@@ -137,7 +140,7 @@ def update_donor_view(request,pk):
     return render(request,'blood/update_donor.html',context=mydict)
 
 
-
+@login_required(login_url='adminlogin')
 def delete_donor_view(request,pk):
     donor=dmodels.Donor.objects.get(id=pk)
     user=User.objects.get(id=donor.user_id)
@@ -145,11 +148,13 @@ def delete_donor_view(request,pk):
     donor.delete()
     return HttpResponseRedirect('/admin-donor')
 
+@login_required(login_url='adminlogin')
 def admin_patient_view(request):
     patients=pmodels.Patient.objects.all()
     return render(request,'blood/admin_patient.html',{'patients':patients})
 
 
+@login_required(login_url='adminlogin')
 def update_patient_view(request,pk):
     patient=pmodels.Patient.objects.get(id=pk)
     user=pmodels.User.objects.get(id=patient.user_id)
@@ -171,7 +176,7 @@ def update_patient_view(request,pk):
     return render(request,'blood/update_patient.html',context=mydict)
 
 
-
+@login_required(login_url='adminlogin')
 def delete_patient_view(request,pk):
     patient=pmodels.Patient.objects.get(id=pk)
     user=User.objects.get(id=patient.user_id)
@@ -179,18 +184,22 @@ def delete_patient_view(request,pk):
     patient.delete()
     return HttpResponseRedirect('/admin-patient')
 
+@login_required(login_url='adminlogin')
 def admin_request_view(request):
     requests=models.BloodRequest.objects.all().filter(status='Pending')
     return render(request,'blood/admin_request.html',{'requests':requests})
 
+@login_required(login_url='adminlogin')
 def admin_request_history_view(request):
     requests=models.BloodRequest.objects.all().exclude(status='Pending')
     return render(request,'blood/admin_request_history.html',{'requests':requests})
 
+@login_required(login_url='adminlogin')
 def admin_donation_view(request):
     donations=dmodels.BloodDonate.objects.all()
     return render(request,'blood/admin_donation.html',{'donations':donations})
 
+@login_required(login_url='adminlogin')
 def update_approve_status_view(request,pk):
     req=models.BloodRequest.objects.get(id=pk)
     message=None
@@ -209,13 +218,14 @@ def update_approve_status_view(request,pk):
     requests=models.BloodRequest.objects.all().filter(status='Pending')
     return render(request,'blood/admin_request.html',{'requests':requests,'message':message})
 
-
+@login_required(login_url='adminlogin')
 def update_reject_status_view(request,pk):
     req=models.BloodRequest.objects.get(id=pk)
     req.status="Rejected"
     req.save()
     return HttpResponseRedirect('/admin-request')
 
+@login_required(login_url='adminlogin')
 def approve_donation_view(request,pk):
     donation=dmodels.BloodDonate.objects.get(id=pk)
     donation_blood_group=donation.bloodgroup
@@ -229,6 +239,8 @@ def approve_donation_view(request,pk):
     donation.save()
     return HttpResponseRedirect('/admin-donation')
 
+
+@login_required(login_url='adminlogin')
 def reject_donation_view(request,pk):
     donation=dmodels.BloodDonate.objects.get(id=pk)
     donation.status='Rejected'
